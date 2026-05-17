@@ -185,6 +185,12 @@ document.addEventListener('DOMContentLoaded', () => {
     updateRoomCode();
   };
   window.drMulUse    = (h,p,a) => mulliganUse(p,h,a||'plus');
+  // v14: refresh Olympic tab หลัง olyAct
+  const _origRefreshOly = window._refreshOlyInline;
+  window._refreshOlyInline = (h) => {
+    if(_origRefreshOly) _origRefreshOly(h);
+    refreshOly14(h);
+  };
   window.drPotToggle = (h,p,t) => potToggle(h,p,t);
 
   // expose ทุก function ที่ HTML onclick เรียก
@@ -225,7 +231,7 @@ document.addEventListener('DOMContentLoaded', () => {
   toggleDragon, isDragonOn, renderDragonSection, renderPotSummary,
   buildDragonPotHTML, calcDragonTeamScores,
   drMulUse: (h,p,a) => mulliganUse(p,h,a||'plus'),
-  scTabSwitch, fnMode14, fnAct14, fnToggle14, teamSet14, sgSet14, sgPutt14, olyAct,
+  scTabSwitch, fnMode14, fnAct14, fnToggle14, teamSet14, sgSet14, sgPutt14, olyAct, setChipPt,
   drPotToggle: (h,p,t) => potToggle(h,p,t),
     goOnlineSetup, saveOnlineSetup, testConnection, createRoom,
     restoreFromFirebase, restoreJoinSrikrung,
@@ -419,6 +425,12 @@ function drToggle14(i){
   G.doubleRe.mults[i]=nv;
   const cell=document.getElementById('dr14-cell-'+i);
   if(cell){cell.className='dr14-cell'+(nv===2?' x2':nv===3?' x3':'')+(i===getCurrentHole()?' cur':'');cell.innerHTML=(i+1)+(nv>1?`<span class="dr14-m">×${nv}</span>`:'');}
+  autoSave();
+}
+
+function setChipPt(v){
+  if(!G.olympic) return;
+  G.olympic.chipPt = Math.max(1, Math.min(10, v||7));
   autoSave();
 }
 
@@ -954,7 +966,7 @@ Object.assign(window, {
   toggleDragon, isDragonOn, renderDragonSection, renderPotSummary,
   buildDragonPotHTML, calcDragonTeamScores,
   drMulUse: (h,p,a) => mulliganUse(p,h,a||'plus'),
-  scTabSwitch, fnMode14, fnAct14, fnToggle14, teamSet14, sgSet14, sgPutt14, olyAct,
+  scTabSwitch, fnMode14, fnAct14, fnToggle14, teamSet14, sgSet14, sgPutt14, olyAct, setChipPt,
   drPotToggle: (h,p,t) => potToggle(h,p,t),
   goOnlineSetup, saveOnlineSetup, testConnection, createRoom,
   joinRoomLookup, selectJoinPlayer,

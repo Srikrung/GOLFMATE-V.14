@@ -147,9 +147,9 @@ export function showHole(h){
       return `<div class="fn14-row">
         <div class="fn14-name" style="color:${clr}">${shortName(pl.name,6)}</div>
         <div class="fn14-btns" id="fn14-btns-${h}-${p}">
-          <button class="fn14-btn" id="fn14-far-${h}-${p}" onclick="fnAct14(${h},${p},'far')">📍 ไกลสุด</button>
-          <button class="fn14-btn" id="fn14-near-${h}-${p}" onclick="fnAct14(${h},${p},'near')">📌 ใกล้สุด</button>
-          <button class="fn14-btn" id="fn14-sank-${h}-${p}" onclick="fnAct14(${h},${p},'sank')">✓ ลง</button>\n          <button class="fn14-btn" id="fn14-miss-${h}-${p}" onclick="fnAct14(${h},${p},'miss')">✗ ไม่ลง</button>\n          <button class="fn14-btn" id="fn14-none-${h}-${p}" onclick="fnAct14(${h},${p},'none')" style="color:#ff453a">ไม่ออน</button>
+          <button class="fn14-btn" id="fn14-far-${h}-${p}" onclick="fnToggle14(${h},${p},'far')">📍 ไกลสุด</button>
+          <button class="fn14-btn" id="fn14-near-${h}-${p}" onclick="fnToggle14(${h},${p},'near')">📌 ใกล้สุด</button>
+
         </div>
       </div>`;
     }).join('');
@@ -158,11 +158,7 @@ export function showHole(h){
       <div class="v14-sec-hdr">
         <div class="v14-sec-title" style="color:#30c48d">📍 Far-Near ${badge}</div>
       </div>
-      <div class="fn-mode-strip">
-        <button class="fn-mode-btn14 on" id="fnmode14-both-${h}" onclick="fnMode14(${h},'both',this)">ไกล + ใกล้</button>
-        <button class="fn-mode-btn14" id="fnmode14-far-${h}" onclick="fnMode14(${h},'far',this)">ไกลอย่างเดียว</button>
-        <button class="fn-mode-btn14" id="fnmode14-near-${h}" onclick="fnMode14(${h},'near',this)">ใกล้อย่างเดียว</button>
-      </div>
+
       <div class="v14-sec-body">${bodyRows}</div>
     </div>`;
   })();

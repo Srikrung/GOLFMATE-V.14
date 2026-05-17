@@ -2,10 +2,10 @@
 <html lang="th">
 <head>
 <meta charset="UTF-8">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⛳</text></svg>">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
 <title>GolfMate v14</title>
 <link rel="apple-touch-icon" href="icons/icon-180.png">
-<link rel="manifest" href="manifest.json">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="GolfMate">
@@ -1575,6 +1575,14 @@ document.getElementById('dragon-guide-modal').addEventListener('click', function
 function drMulUse(h,p,a){ if(window.drMulUse._fn) window.drMulUse._fn(h,p,a); }
 function drPotToggle(h,p,t){ if(window.drPotToggle._fn) window.drPotToggle._fn(h,p,t); }
 function resetRoomCode(){ if(window.resetRoomCode._fn) window.resetRoomCode._fn(); }
+
+// ── GolfMate v14 plain globals ──
+function scTabSwitch(h,i){ window.scTabSwitch&&window.scTabSwitch(h,i); }
+function fnMode14(h,m,el){ window.fnMode14&&window.fnMode14(h,m,el); }
+function fnAct14(h,p,a){ window.fnAct14&&window.fnAct14(h,p,a); }
+function teamSet14(h,p,t,el){ window.teamSet14&&window.teamSet14(h,p,t,el); }
+function sgSet14(h,p,f,v){ window.sgSet14&&window.sgSet14(h,p,f,v); }
+function sgPutt14(h,p,d){ window.sgPutt14&&window.sgPutt14(h,p,d); }
 
 // ── Dragon Tournament ──
 const _drt = {

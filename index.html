@@ -385,6 +385,12 @@
     </div>
     <div id="gb-olympic" style="display:none;padding:8px 14px 12px;border-bottom:0.5px solid var(--sep)">
       <div style="display:flex;align-items:center;gap:8px"><span style="font-size:13px;color:var(--lbl2)">1 พอยต์ =</span><input type="number" id="gv-olympic" value="20" min="1" style="width:68px;border-radius:8px;padding:7px;text-align:center;font-size:15px"><span style="font-size:13px;color:var(--lbl2)">บาท</span></div>
+      <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+        <span style="font-size:13px;color:var(--lbl2)">🟡 Chip =</span>
+        <input type="number" id="gv-chip-pt" value="7" min="1" max="10" onchange="setChipPt(+this.value)"
+          style="width:68px;border-radius:8px;padding:7px;text-align:center;font-size:15px">
+        <span style="font-size:13px;color:var(--lbl2)">พ้อยต์ (default 7)</span>
+      </div>
     </div>
     <div id="gb-olympic-dragon" style="display:none;padding:8px 14px 12px;border-bottom:0.5px solid var(--sep);background:rgba(255,107,43,0.04)">
       <div style="font-size:11px;font-weight:700;color:#ff6b2b;margin-bottom:8px">🐉 Dragon — แข่งว่าใครพัตเดียวลงได้</div>
@@ -1596,6 +1602,7 @@ function setParAll(h){ window.setParAll&&window.setParAll(h); }
 function toggleTH(h){ window.toggleTH&&window.toggleTH(h); }
 function drToggle14(i){ window.drToggle14&&window.drToggle14(i); }
 function fnToggle14(h,p,a){ window.fnToggle14&&window.fnToggle14(h,p,a); }
+function setChipPt(v){ window.setChipPt&&window.setChipPt(v); }
 
 // ── Dragon Tournament ──
 const _drt = {

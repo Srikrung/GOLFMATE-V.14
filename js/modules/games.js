@@ -84,7 +84,7 @@ export function calcOlympicHole(h){
   const inf=players.map((_,p)=>{
     const st=od.status[p],idx=od.order.indexOf(p);let base=null,sank=false;
     const ordLen=od.order.length;
-    if(st==='chip'){base=(G.dragon&&G.dragon.on)?8:7;sank=true;}
+    if(st==='chip'){base=(G.dragon&&G.dragon.on)?8:(G.olympic.chipPt||7);sank=true;}
     else if(st==='sank'&&idx!==-1){base=Math.min(7,bPt+(ordLen-1-idx));sank=true;}
     else if(st==='miss'&&idx!==-1){base=Math.min(7,bPt+(ordLen-1-idx));sank=false;}
     else if(st==='dq-sank'){base=1;sank=true;}

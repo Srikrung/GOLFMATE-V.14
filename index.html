@@ -1583,6 +1583,18 @@ function fnAct14(h,p,a){ window.fnAct14&&window.fnAct14(h,p,a); }
 function teamSet14(h,p,t,el){ window.teamSet14&&window.teamSet14(h,p,t,el); }
 function sgSet14(h,p,f,v){ window.sgSet14&&window.sgSet14(h,p,f,v); }
 function sgPutt14(h,p,d){ window.sgPutt14&&window.sgPutt14(h,p,d); }
+// Olympic — ใช้ olyAct จาก games.js ผ่าน window
+function olyAct(h,p,a){ window.olyAct&&window.olyAct(h,p,a); }
+// Double-Re — toggle inline ไม่เปลี่ยนหน้า
+function drSet(h,v){
+  if(window.drSet&&window.drSet._fn) window.drSet._fn(h,v);
+  else if(window.drSet) window.drSet(h,v);
+}
+// พาร์ทุกคน
+function setParAll(h){ window.setParAll&&window.setParAll(h); }
+// Turbo
+function toggleTH(h){ window.toggleTH&&window.toggleTH(h); }
+function drToggle14(i){ window.drToggle14&&window.drToggle14(i); }
 
 // ── Dragon Tournament ──
 const _drt = {

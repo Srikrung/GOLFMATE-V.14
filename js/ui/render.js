@@ -187,7 +187,7 @@ export function showHole(h){
         <div class="oly14-info">
           <span>ออนไกล=แต้มมาก</span><span>Chip=8pt</span><span>DQ=1pt</span><span>ลงหลายคน=สู้ส่วนต่าง</span>
         </div>
-        ${rows}
+        <div id="oly14-wrap-${h}">${rows}</div>
       </div>
     </div>`;
   })();
@@ -361,6 +361,31 @@ export function showHole(h){
   }
 }
 
+export function refreshOly14(h){
+  const wrap = document.getElementById(`oly14-wrap-${h}`);
+  if(!wrap) return;
+  const pColors=['#5ac8fa','#30d158','#bf5af2','#ff9f0a','#ff6b2b','#ffd700','#ff453a','#64d2ff'];
+  const od=olympicData[h];
+  const dqC=players.filter((_,p)=>{const st=od.status[p];return st==='dq'||st==='dq-sank'||st==='dq-miss';}).length;
+  const bPt=2+dqC, ordLen=od.order.length;
+  wrap.innerHTML=players.map((pl,p)=>{
+    const st=od.status[p]||'';
+    const idx=od.order.indexOf(p);
+    const clr=pColors[p%pColors.length];
+    const ptLbl=idx!==-1?Math.min(7,bPt+(ordLen-1-idx))+'pt':'—pt';
+    return `<div class="oly14-row">
+      <div class="oly14-name" style="color:${clr}">${shortName(pl.name,6)}</div>
+      <div class="oly14-btns">
+        <button class="ob14${idx!==-1?' rank-on':''}" onclick="olyAct(${h},${p},'rank')">ระยะ<span class="ob14-sub">${ptLbl}</span></button>
+        <button class="ob14${st==='sank'||st==='dq-sank'?' sank-on':''}" onclick="olyAct(${h},${p},'sank')">✓ ลง</button>
+        <button class="ob14${st==='miss'||st==='dq-miss'?' miss-on':''}" onclick="olyAct(${h},${p},'miss')">ไม่ลง</button>
+        <button class="ob14${st==='chip'?' chip-on':''}" onclick="olyAct(${h},${p},'chip')">🟡 Chip</button>
+        <button class="ob14${st==='dq'||st==='dq-sank'||st==='dq-miss'?' dq-on':''}" onclick="olyAct(${h},${p},'dq')">🚫 DQ</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
 export function _refreshOlyInline(h){
   if(!olympicData[h]) return;
   const od = olympicData[h];
@@ -438,7 +463,7 @@ export function updateTotals(){
     const infOly=players.map((_,p)=>{
       const st=od.status[p], idx=od.order.indexOf(p);
       let base=null, sank=false;
-      if(st==='chip'){base=(G.dragon&&G.dragon.on)?8:7;sank=true;}
+      if(st==='chip'){base=(G.dragon&&G.dragon.on)?8:(G.olympic.chipPt||7);sank=true;}
       else if(st==='sank'&&idx!==-1){base=Math.min(7,bPt+(ordLen-1-idx));sank=true;}
       else if(st==='miss'&&idx!==-1){base=Math.min(7,bPt+(ordLen-1-idx));sank=false;}
       else if(st==='dq-sank'){base=1;sank=true;}
@@ -865,7 +890,7 @@ export function buildMatrixHTML(gTot,n,fs,hfs){
       const infOly=players.map((_,p)=>{
         const st=od.status[p], idx=od.order.indexOf(p);
         let base=null, sank=false;
-        if(st==='chip'){base=(G.dragon&&G.dragon.on)?8:7;sank=true;}
+        if(st==='chip'){base=(G.dragon&&G.dragon.on)?8:(G.olympic.chipPt||7);sank=true;}
         else if(st==='sank'&&idx!==-1){base=Math.min(7,bPt+(ordLen-1-idx));sank=true;}
         else if(st==='miss'&&idx!==-1){base=Math.min(7,bPt+(ordLen-1-idx));sank=false;}
         else if(st==='dq-sank'){base=1;sank=true;}

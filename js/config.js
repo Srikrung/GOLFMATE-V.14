@@ -7,7 +7,7 @@
 // ── FIREBASE ──
 export const FB_URL = 'https://golfmate-4d819-default-rtdb.asia-southeast1.firebasedatabase.app';
 export const ROOM_MAX = 8;
-export const LS_KEY = 'golfmate_v11';
+export const LS_KEY = 'golfmate_v14';
 export const THEME_KEY = 'golfmate_theme';
 export const ICONS = {bite:'🐶',olympic:'🏅',team:'🤝',farNear:'🎯',hcap:'🎯'};
 
@@ -28,7 +28,7 @@ export const teamSoloPlayers = new Set();
 // ── GAME CONFIG ──
 export const G = {
   bite:    {on:true, val:20, mults:{hio:50,albatross:4,eagle:3,birdie:2}},
-  olympic: {on:false,val:20},
+  olympic: {on:false,val:20,chipPt:7},
   team:    {on:false,val:20,chuanVal:4,mode:'h2h',swapType:'domo',baseTeams:[],domoTeams:[]},
   farNear: {on:false,val:20},
   turbo:   {on:true, holes:new Set([8,17]),mult:2},
@@ -67,5 +67,5 @@ export function fmtDate(v){
 export function autoSave(){ window._autoSave?.(); }
 export function updateAddPlayerBtn(){ window._updateAddPlayerBtn?.(); }
 
-// ── Dragon Golf V13 ──
-export const LS_KEY_DRAGON = 'golfmate_dragon_v13';
+// ── Dragon Golf V14 ──
+export const LS_KEY_DRAGON = 'golfmate_dragon_v14';

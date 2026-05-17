@@ -112,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
         localStorage.removeItem(LS_KEY);
         // กัน restore loop หลัง auto-expire
         sessionStorage.setItem('golfmate_just_cleared','1');
-        // V13: reset Room Code กลับค่าเริ่มต้น (ว่าง) เมื่อข้ามวัน
+        // V14: reset Room Code กลับค่าเริ่มต้น (ว่าง) เมื่อข้ามวัน
         try{
           const sl = document.getElementById('room-code-letter');
           const sn = document.getElementById('room-code-num');
@@ -221,7 +221,7 @@ document.addEventListener('DOMContentLoaded', () => {
     goLeaderboard, lbGoPrev, lbGoNext, lbSetTab, lbSetRoom, lbFetch,
     // firebase
     toggleSyncSw, updateRoomCode, autoGenRoomCode, resetRoomCode,
-  // Dragon Golf V13
+  // Dragon Golf V14
   toggleDragon, isDragonOn, renderDragonSection, renderPotSummary,
   buildDragonPotHTML, calcDragonTeamScores,
   drMulUse: (h,p,a) => mulliganUse(p,h,a||'plus'),
@@ -450,17 +450,26 @@ function fnMode14(h, mode, el){
 
 // Far-Near action
 function fnAct14(h, p, act){
-  players.forEach((_,pp)=>{
-    ['far','near','none'].forEach(a=>{
-      const b=document.getElementById(`fn14-${a}-${h}-${pp}`);
-      if(b) b.classList.remove('far','near','none14');
-    });
+  // clear active states สำหรับ player p เท่านั้น
+  ['far','near','sank','miss','none'].forEach(a=>{
+    const b=document.getElementById(`fn14-${a}-${h}-${p}`);
+    if(b){ b.classList.remove('far','near','sank','miss','none14'); b.disabled=false; b.style.opacity=''; }
   });
+  // set active
   const btn=document.getElementById(`fn14-${act}-${h}-${p}`);
   if(btn){
-    if(act==='far') btn.classList.add('far');
+    if(act==='far')  btn.classList.add('far');
     else if(act==='near') btn.classList.add('near');
+    else if(act==='sank') btn.classList.add('sank');
+    else if(act==='miss') btn.classList.add('miss');
     else btn.classList.add('none14');
+  }
+  // ถ้าเลือก ไม่ออน → disable ลง/ไม่ลง
+  const sankBtn = document.getElementById(`fn14-sank-${h}-${p}`);
+  const missBtn = document.getElementById(`fn14-miss-${h}-${p}`);
+  if(act==='none'){
+    if(sankBtn){ sankBtn.disabled=true; sankBtn.style.opacity='0.25'; }
+    if(missBtn){ missBtn.disabled=true; missBtn.style.opacity='0.25'; }
   }
   // sync to farNearData
   if(typeof fnSetAct==='function') fnSetAct(h,p,act);
@@ -569,7 +578,7 @@ export function startGame(){
   teamSoloPlayers.clear();
 
   initHcapPairs(n);
-  initDragonData(n); // V13 Dragon
+  initDragonData(n); // V14 Dragon
   // ตั้งม้า targets
   if(!G.settamaa) G.settamaa={targets:[]};
   G.settamaa.targets = [...document.querySelectorAll('.settamaa-input')]
@@ -781,7 +790,7 @@ export function clearGameData(){
   if(!confirm('ล้างข้อมูลเกมเก่า?\n\nสกอร์ในเครื่องจะหาย\n(Firebase backup ยังอยู่ — กู้คืนได้ภายหลัง)')) return;
   // ล้าง localStorage ทั้งหมดที่เกี่ยวกับเกม
   localStorage.removeItem(LS_KEY);
-  localStorage.removeItem('golfmate_dragon_v13');
+  localStorage.removeItem('golfmate_dragon_v14');
   // flag ป้องกัน auto-restore วนซ้ำ
   sessionStorage.setItem('golfmate_just_cleared','1');
   // reset state
@@ -929,7 +938,7 @@ Object.assign(window, {
   sgToggle, sgChPutt, sgSetPutt1,
   goLeaderboard, lbGoPrev, lbGoNext, lbSetTab, lbSetRoom, lbFetch,
   toggleSyncSw, updateRoomCode, autoGenRoomCode, resetRoomCode,
-  // Dragon Golf V13
+  // Dragon Golf V14
   toggleDragon, isDragonOn, renderDragonSection, renderPotSummary,
   buildDragonPotHTML, calcDragonTeamScores,
   drMulUse: (h,p,a) => mulliganUse(p,h,a||'plus'),

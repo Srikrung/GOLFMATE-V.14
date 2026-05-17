@@ -628,7 +628,7 @@ export function holeNav(dir){
   syncFullBackup();
   // V12.1 — sync Par สนามขึ้น Firebase (เบื้องหลัง)
   syncCourseParToFirebase();
-  setCurrentHole(next); showHole(next);
+  setCurrentHole(next); showHole(next); updateProgressBar();
 }
 
 // ============================================================

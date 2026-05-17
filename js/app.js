@@ -225,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
   toggleDragon, isDragonOn, renderDragonSection, renderPotSummary,
   buildDragonPotHTML, calcDragonTeamScores,
   drMulUse: (h,p,a) => mulliganUse(p,h,a||'plus'),
-  scTabSwitch, fnMode14, fnAct14, teamSet14, sgSet14, sgPutt14, olyAct,
+  scTabSwitch, fnMode14, fnAct14, fnToggle14, teamSet14, sgSet14, sgPutt14, olyAct,
   drPotToggle: (h,p,t) => potToggle(h,p,t),
     goOnlineSetup, saveOnlineSetup, testConnection, createRoom,
     restoreFromFirebase, restoreJoinSrikrung,
@@ -446,6 +446,18 @@ function fnMode14(h, mode, el){
     if(far)  far.style.display  = mode==='near'?'none':'';
     if(near) near.style.display = mode==='far'?'none':'';
   });
+}
+
+// Far-Near toggle (ไกล/ใกล้ toggle แยกอิสระ)
+function fnToggle14(h, p, act){
+  const btn = document.getElementById(`fn14-${act}-${h}-${p}`);
+  if(!btn) return;
+  const isOn = btn.classList.contains(act==='far'?'far':'near');
+  btn.classList.toggle('far', act==='far' && !isOn);
+  btn.classList.toggle('near', act==='near' && !isOn);
+  // sync
+  if(typeof fnSetAct==='function') fnSetAct(h, p, act==='far'?(!isOn?'far':'none'):(!isOn?'near':'none'));
+  autoSave();
 }
 
 // Far-Near action
@@ -942,7 +954,7 @@ Object.assign(window, {
   toggleDragon, isDragonOn, renderDragonSection, renderPotSummary,
   buildDragonPotHTML, calcDragonTeamScores,
   drMulUse: (h,p,a) => mulliganUse(p,h,a||'plus'),
-  scTabSwitch, fnMode14, fnAct14, teamSet14, sgSet14, sgPutt14, olyAct,
+  scTabSwitch, fnMode14, fnAct14, fnToggle14, teamSet14, sgSet14, sgPutt14, olyAct,
   drPotToggle: (h,p,t) => potToggle(h,p,t),
   goOnlineSetup, saveOnlineSetup, testConnection, createRoom,
   joinRoomLookup, selectJoinPlayer,

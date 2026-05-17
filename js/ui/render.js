@@ -123,18 +123,15 @@ export function showHole(h){
     </div>`;
   }).join('');
 
-  // Turbo grid
+  // Turbo — เฉพาะหลุมปัจจุบัน
   const turboGridHTML = (()=>{
     if(!G.turbo.on) return '';
-    let cells='';
-    for(let i=0;i<18;i++){
-      const on=G.turbo.holes.has(i);
-      const cur=i===h;
-      cells+=`<div class="tgh${on?' on':''}${cur?' cur':''}" onclick="toggleTH(${i})">${i+1}${on?`<span class="tgh-m">×2</span>`:''}</div>`;
-    }
-    return `<div class="turbo-sec">
-      <div class="turbo-sec-title">⚡ Turbo — กดหลุมที่ต้องการ ×2 <span style="font-size:9px;color:var(--lbl3);font-weight:400">ราคาสองเท่า</span></div>
-      <div class="turbo-grid-v14">${cells}</div>
+    const on = G.turbo.holes.has(h);
+    return `<div style="padding:6px 12px 10px;border-top:0.5px solid var(--sep)">
+      <button id="tc2-${h}" onclick="toggleTH(${h})"
+        style="width:100%;padding:9px;border-radius:10px;font-size:12px;font-weight:700;cursor:pointer;font-family:inherit;border:1.5px solid ${on?'rgba(255,159,10,0.6)':'rgba(255,255,255,0.1)'};background:${on?'rgba(255,159,10,0.15)':'rgba(255,255,255,0.03)'};color:${on?'#ff9f0a':'var(--lbl3)'}">
+        ⚡ หลุมนี้ Turbo ×2 ${on?'(เปิดอยู่ — กดเพื่อปิด)':'(กดเพื่อเปิด)'}
+      </button>
     </div>`;
   })();
 

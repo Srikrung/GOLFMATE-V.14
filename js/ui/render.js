@@ -149,7 +149,7 @@ export function showHole(h){
         <div class="fn14-btns" id="fn14-btns-${h}-${p}">
           <button class="fn14-btn" id="fn14-far-${h}-${p}" onclick="fnAct14(${h},${p},'far')">📍 ไกลสุด</button>
           <button class="fn14-btn" id="fn14-near-${h}-${p}" onclick="fnAct14(${h},${p},'near')">📌 ใกล้สุด</button>
-          <button class="fn14-btn" id="fn14-sank-${h}-${p}" onclick="fnAct14(${h},${p},'sank')">✓ ลง</button>\n          <button class="fn14-btn" id="fn14-miss-${h}-${p}" onclick="fnAct14(${h},${p},'miss')">✗ ไม่ลง</button>\n          <button class="fn14-btn" id="fn14-none-${h}-${p}" onclick="fnAct14(${h},${p},'none')">—</button>
+          <button class="fn14-btn" id="fn14-sank-${h}-${p}" onclick="fnAct14(${h},${p},'sank')">✓ ลง</button>\n          <button class="fn14-btn" id="fn14-miss-${h}-${p}" onclick="fnAct14(${h},${p},'miss')">✗ ไม่ลง</button>\n          <button class="fn14-btn" id="fn14-none-${h}-${p}" onclick="fnAct14(${h},${p},'none')" style="color:#ff453a">ไม่ออน</button>
         </div>
       </div>`;
     }).join('');

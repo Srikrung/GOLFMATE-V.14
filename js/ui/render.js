@@ -149,7 +149,7 @@ export function showHole(h){
         <div class="fn14-btns" id="fn14-btns-${h}-${p}">
           <button class="fn14-btn" id="fn14-far-${h}-${p}" onclick="fnAct14(${h},${p},'far')">📍 ไกลสุด</button>
           <button class="fn14-btn" id="fn14-near-${h}-${p}" onclick="fnAct14(${h},${p},'near')">📌 ใกล้สุด</button>
-          <button class="fn14-btn" id="fn14-none-${h}-${p}" onclick="fnAct14(${h},${p},'none')">—</button>
+          <button class="fn14-btn" id="fn14-sank-${h}-${p}" onclick="fnAct14(${h},${p},'sank')">✓ ลง</button>\n          <button class="fn14-btn" id="fn14-miss-${h}-${p}" onclick="fnAct14(${h},${p},'miss')">✗ ไม่ลง</button>\n          <button class="fn14-btn" id="fn14-none-${h}-${p}" onclick="fnAct14(${h},${p},'none')">—</button>
         </div>
       </div>`;
     }).join('');
@@ -241,7 +241,7 @@ export function showHole(h){
     for(let i=0;i<18;i++){
       const m=G.doubleRe.mults[i]||1;
       const cur=i===h;
-      cells+=`<div class="dr14-cell${m===2?' x2':m===3?' x3':''}${cur?' cur':''}" onclick="drSet(${i},${G.doubleRe.mults[i]===1?2:G.doubleRe.mults[i]===2?3:1})">${i+1}${m>1?`<span class="dr14-m">×${m}</span>`:''}</div>`;
+      cells+=`<div class="dr14-cell${m===2?' x2':m===3?' x3':''}${cur?' cur':''}" id="dr14-cell-${i}" onclick="drToggle14(${i})">${i+1}${m>1?`<span class="dr14-m">×${m}</span>`:''}</div>`;
     }
     return `<div class="v14-sec" style="margin-top:0">
       <div class="v14-sec-hdr"><div class="v14-sec-title" style="color:#d4a843">🔄 Double-Re — ตัวคูณต่อหลุม</div></div>
@@ -292,24 +292,24 @@ export function showHole(h){
   // RENDER FULL HTML
   // ════════════════════════════════════
   wrap.innerHTML = `<div class="hole-card">
-    <!-- Tab Bar -->
+    <!-- Tab Bar: ซ่อน tab ที่เกมปิดอยู่ -->
     <div class="sc-tab-bar">
       <button class="sc-tab t1 on" id="sctab-${h}-0" onclick="scTabSwitch(${h},0)">
         <div class="sc-tab-icon">⚡</div>
         <div class="sc-tab-lbl">สกอร์</div>
       </button>
-      <button class="sc-tab t2" id="sctab-${h}-1" onclick="scTabSwitch(${h},1)">
+      ${(G.farNear.on||G.olympic.on)?`<button class="sc-tab t2" id="sctab-${h}-1" onclick="scTabSwitch(${h},1)">
         <div class="sc-tab-icon">🏅</div>
         <div class="sc-tab-lbl">Far·Oly</div>
-      </button>
-      <button class="sc-tab t3" id="sctab-${h}-2" onclick="scTabSwitch(${h},2)">
+      </button>`:''}
+      ${(G.team.on||G.doubleRe&&G.doubleRe.on)?`<button class="sc-tab t3" id="sctab-${h}-2" onclick="scTabSwitch(${h},2)">
         <div class="sc-tab-icon">🤝</div>
         <div class="sc-tab-lbl">ทีม</div>
-      </button>
-      <button class="sc-tab t4" id="sctab-${h}-3" onclick="scTabSwitch(${h},3)">
+      </button>`:''}
+      ${(G.srikrung&&G.srikrung.on)?`<button class="sc-tab t4" id="sctab-${h}-3" onclick="scTabSwitch(${h},3)">
         <div class="sc-tab-icon">⛳</div>
         <div class="sc-tab-lbl">SG</div>
-      </button>
+      </button>`:''}
     </div>
 
     <!-- Panel 0: สกอร์ + Turbo -->
